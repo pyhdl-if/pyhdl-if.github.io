@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      PyHDL-IF &middot; A Flexible Python/HDL Interface
+    
+  </title>
+
+  
+  <link rel="canonical" href="/">
+  
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'G-B75HY0XCL2', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p></p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item active" href="/index.html">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+    
+
+    <!--
+    <a class="sidebar-nav-item" href="http://tblink-rpc.github.io/tblink-rpc-docs/index.html">Documentation</a>
+    <a class="sidebar-nav-item" href="http://github.com/pyhdl-if/archive/v1.0.0.zip">Download</a>
+    -->
+    <a class="sidebar-nav-item" href="http://github.com/pyhdl-if">GitHub Project</a>
+    <!--
+    <span class="sidebar-nav-item">Currently v1.0.0</span>
+      -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2024 Matthew Ballance. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">PyHDL-IF</a>
+            <small>A Flexible Python/HDL Interface</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <!--
+<div class="posts">
+  
+</div>
+ -->
+
+<h1 id="pyhdl-if">PyHDL-IF</h1>
+
+<p>PyHDL-IF provides libraries for interfacing between Python and various 
+Hardware Description Language (HDL) languages and simulation environments.</p>
+
+<p><img src="imgs/pyhdl_library_stack.png" alt="" /></p>
+
+<p>The PyHDL-IF library stack is shown above:</p>
+<ul>
+  <li><strong>pyhdl-pi-if</strong> - The PyHDL Procedural Interface (PI) implements connections to various 
+HDL programming interfaces (eg VPI, DPI, etc) and exposes the Python C API via these
+interfaces. This allows HDL code to call Python.</li>
+  <li><strong>pyhdl-call-if</strong> - The PyHDL Call Interface implements synchronization mechanisms on
+top of the procedural-interface API to enable cross-calling between Python and HDL.
+This library also provides automation in the form of HDL code generation.</li>
+  <li><strong>pyhdl-tlm-if</strong> - The PyHDL Transaction-Level Model (TLM) interface implements
+a bi-directional TLM interface between Python and HDL intended for use in 
+communicating with Bus Functional Models (BFMs).</li>
+</ul>
+
+<p>The PyHDL-IF libraries are designed to work with or without the use of <code class="language-plaintext highlighter-rouge">cocotb</code>.</p>
+
+<h2 id="example-usecase-calling-a-python-reference-model-from-uvm">Example Usecase: Calling a Python Reference Model from UVM</h2>
+
+<p><img src="imgs/UVM_python_ref_model.png" alt="" /></p>
+
+<p>A wide variety of reference algorithms are available as Python libraries. 
+The pyhdl-pi-if makes it easy to call non-time-consuming Python methods 
+directly from HDL. This can be used to pass data to a reference model
+implemented in Python, and check the correctness of results.</p>
+
+<h2 id="example-usecase-calling-uvm-api-from-python">Example Usecase: Calling UVM API from Python</h2>
+
+<p><img src="imgs/UVM_python_test.png" alt="" /></p>
+
+<p>Creating the structure of a UVM testbench in SystemVerilog can be efficient
+due to reusable assets. However, test writers may wish to work in Python.
+This can be accomplished by implementing a test API on a SV-UVM virtual 
+sequence class, then calling that API from Python. The PyHDL-Call-IF package
+enables time-consuming calls from SystemVerilog to invoke co-routines 
+in Python, and vice versa.</p>
+
+<h2 id="example-usecase-coordinating-cocotb-and-uvm-testbenches">Example Usecase: Coordinating cocotb and UVM Testbenches</h2>
+
+<p><img src="imgs/UVM_cocotb_sync.png" alt="" /></p>
+
+<p>The synchronization support built into pyhdl-call-if allows UVM 
+testbench environments to synchronize with <code class="language-plaintext highlighter-rouge">cocotb</code> signal-level
+testbench environments.</p>
+
+<!--
+<div class="pagination">
+  
+    <span class="pagination-item older">Older</span>
+  
+  
+    <span class="pagination-item newer">Newer</span>
+  
+</div>
+  -->
+
+
+  
+<p><small class="copyright">© <!--copyyears--> Matthew Ballance; All rights reserved.
+</small></p>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+
+
+  </body>
+
+</html>
